@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="Straightforward, conversion-focused websites for local businesses in Sun Prairie and the Madison area." />
+  <link rel="icon" href="data:," />
+  <title>Matt Builds Sites</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap');
+
+    :root {
+      color-scheme: light dark;
+      --paper: #f5f4f0;
+      --surface: #ffffff;
+      --ink: #17221d;
+      --muted: #59645e;
+      --line: #c9cdc8;
+      --line-strong: #8f9993;
+      --green: #0f6b4e;
+      --green-dark: #084f3a;
+      --green-pale: #dcebe4;
+      --orange: #e86f3f;
+      --orange-soft: #f7d9cc;
+      --charcoal: #1e2924;
+      --shadow: 0 18px 50px rgba(21, 36, 29, .12);
+      --max: 1180px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #111714;
+        --surface: #19211d;
+        --ink: #f2f4f1;
+        --muted: #b6c0ba;
+        --line: #3a4640;
+        --line-strong: #68766f;
+        --green: #5fcca2;
+        --green-dark: #8fdfbf;
+        --green-pale: #183d30;
+        --orange: #ff8a5d;
+        --orange-soft: #4d2b21;
+        --charcoal: #ecf2ee;
+        --shadow: 0 20px 55px rgba(0, 0, 0, .3);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: auto; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Archivo", sans-serif;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    button, input, select, textarea { font: inherit; }
+    a { color: inherit; }
+    img { max-width: 100%; }
+    :focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+
+    .shell {
+      width: min(var(--max), calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 28px;
+      min-height: 72px;
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+      font-weight: 600;
+    }
+    .site-nav a { text-decoration: none; }
+    .site-nav a:hover { color: var(--green); }
+    .nav-contact {
+      border: 1px solid var(--ink);
+      padding: 9px 15px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr);
+      gap: clamp(40px, 8vw, 110px);
+      align-items: center;
+      padding: clamp(44px, 6vw, 76px) 0 72px;
+    }
+    .hero h1 {
+      margin: 0;
+      max-width: 760px;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: clamp(3.35rem, 7.6vw, 7.4rem);
+      font-weight: 600;
+      line-height: .91;
+      letter-spacing: -.065em;
+    }
+    .hero h1 span { color: var(--green); }
+    .hero-side { padding-bottom: 10px; }
+    .hero-side p {
+      margin: 0 0 28px;
+      color: var(--muted);
+      font-size: clamp(1.06rem, 1.6vw, 1.3rem);
+      line-height: 1.55;
+    }
+    .button-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 20px;
+      border: 1px solid var(--green);
+      background: var(--green);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    @media (prefers-color-scheme: dark) {
+      .button { color: #071b13; }
+    }
+    .button:hover { background: var(--green-dark); border-color: var(--green-dark); }
+    .button.secondary { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+    .button.secondary:hover { border-color: var(--ink); background: var(--surface); }
+    .arrow { margin-left: 16px; font-size: 1.15em; }
+
+    .proof-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .proof-strip div { padding: 22px 0; color: var(--muted); font-size: .92rem; }
+    .proof-strip div + div { padding-left: 28px; border-left: 1px solid var(--line); }
+    .proof-strip strong { display: block; margin-bottom: 2px; color: var(--ink); }
+
+    section { padding: 110px 0; scroll-margin-top: 24px; }
+    .section-head {
+      display: grid;
+      grid-template-columns: 190px minmax(0, 1fr);
+      gap: 42px;
+      align-items: start;
+      margin-bottom: 54px;
+    }
+    .section-number { color: var(--green); font-family: ui-monospace, monospace; font-size: .84rem; }
+    .section-head h2 {
+      margin: 0;
+      max-width: 820px;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: clamp(2.25rem, 4vw, 4.2rem);
+      font-weight: 600;
+      letter-spacing: -.045em;
+      line-height: 1.02;
+    }
+    .section-head p { margin: 18px 0 0; max-width: 690px; color: var(--muted); font-size: 1.03rem; }
+
+    .projects { display: grid; gap: 34px; }
+    .project {
+      display: grid;
+      grid-template-columns: minmax(290px, .82fr) minmax(0, 1.18fr);
+      border-top: 1px solid var(--line-strong);
+      padding-top: 34px;
+      gap: clamp(28px, 5vw, 72px);
+    }
+    .project-copy { padding: 10px 0 18px; }
+    .project-type { color: var(--green); font-size: .82rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
+    .project h3 { margin: 10px 0 12px; font-size: clamp(1.8rem, 3vw, 2.7rem); letter-spacing: -.04em; line-height: 1.05; }
+    .project p { margin: 0 0 20px; color: var(--muted); }
+    .project ul { list-style: none; margin: 0; padding: 0; }
+    .project li { position: relative; padding: 8px 0 8px 22px; border-top: 1px solid var(--line); font-size: .92rem; }
+    .project li::before { content: "↳"; position: absolute; left: 0; color: var(--orange); }
+
+    .browser {
+      overflow: hidden;
+      min-height: 410px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .browser-bar { display: flex; align-items: center; gap: 7px; height: 38px; padding: 0 13px; border-bottom: 1px solid var(--line); }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line-strong); }
+    .mock { min-height: 371px; position: relative; overflow: hidden; }
+
+    .groomer { background: #f5efe4; color: #253228; padding: 34px; }
+    .groomer .mini-nav { display: flex; justify-content: space-between; font-size: .64rem; font-weight: 700; }
+    .groomer .paw { position: absolute; right: -15px; bottom: -38px; width: 48%; aspect-ratio: 1; border-radius: 45% 55% 55% 45%; background: #8aae93; transform: rotate(-18deg); opacity: .58; }
+    .groomer .paw::before, .groomer .paw::after { content: ""; position: absolute; top: -38%; width: 37%; aspect-ratio: 1; border-radius: 50%; background: inherit; }
+    .groomer .paw::before { left: 5%; }
+    .groomer .paw::after { right: 5%; }
+    .mock-kicker { margin-top: 62px; font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .12em; }
+    .groomer h4, .roofer h4, .boiler h4 { position: relative; z-index: 1; margin: 10px 0 16px; max-width: 440px; font-size: clamp(2.15rem, 4vw, 3.7rem); line-height: .96; letter-spacing: -.055em; }
+    .mini-button { position: relative; z-index: 1; display: inline-block; padding: 10px 14px; background: #244d38; color: #fff; font-size: .72rem; font-weight: 700; }
+
+    .roofer { background: #13263b; color: #fff; padding: 34px; }
+    .roofer::after { content: ""; position: absolute; right: -8%; top: 0; width: 55%; height: 100%; background: repeating-linear-gradient(135deg, transparent 0 24px, rgba(245,133,65,.23) 25px 27px); transform: skewX(-10deg); }
+    .roofer .mini-nav, .boiler .mini-nav { display: flex; justify-content: space-between; position: relative; z-index: 1; font-size: .64rem; font-weight: 700; }
+    .roofer .mock-kicker { color: #f88949; }
+    .roofer .mini-button { background: #f47735; }
+    .roofer .mini-stat { position: absolute; z-index: 1; right: 32px; bottom: 28px; text-align: right; font-size: .68rem; color: #ccd7e3; }
+    .roofer .mini-stat strong { display: block; color: white; font-size: 1.7rem; }
+
+    .boiler { background: #e9eef0; color: #1d2a31; padding: 34px; }
+    .boiler .pipe { position: absolute; right: 6%; top: 18%; width: 30%; height: 70%; border: 28px solid #447a91; border-left: 0; border-radius: 0 80px 80px 0; opacity: .26; }
+    .boiler .mock-kicker { color: #2d718c; }
+    .boiler .mini-button { background: #286a83; }
+    .boiler .emergency { position: absolute; right: 24px; bottom: 24px; background: #d5653a; color: #fff; padding: 9px 12px; font-size: .65rem; font-weight: 800; }
+
+    .approach-wrap { background: var(--charcoal); color: var(--paper); }
+    @media (prefers-color-scheme: dark) { .approach-wrap { background: #e8edea; color: #101713; } }
+    .approach-wrap .section-number { color: var(--orange); }
+    .approach-wrap .section-head p { color: color-mix(in srgb, currentColor 72%, transparent); }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid color-mix(in srgb, currentColor 34%, transparent); }
+    .step { padding: 32px 34px 10px 0; }
+    .step + .step { padding-left: 34px; border-left: 1px solid color-mix(in srgb, currentColor 34%, transparent); }
+    .step span { color: var(--orange); font-family: ui-monospace, monospace; font-size: .82rem; }
+    .step h3 { margin: 38px 0 10px; font-size: 1.35rem; }
+    .step p { margin: 0; color: color-mix(in srgb, currentColor 73%, transparent); font-size: .94rem; }
+
+    .about-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(44px, 8vw, 110px); align-items: start; }
+    .about-grid h2 { margin: 0; font-family: "Source Serif 4", Georgia, serif; font-size: clamp(2.35rem, 4vw, 4.2rem); line-height: 1.04; letter-spacing: -.045em; }
+    .about-copy p { margin: 0 0 18px; color: var(--muted); font-size: 1.05rem; }
+    .about-note { margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--ink); font-weight: 600; }
+
+    .contact { border-top: 1px solid var(--line); }
+    .contact-grid { display: grid; grid-template-columns: .83fr 1.17fr; gap: clamp(42px, 8vw, 110px); }
+    .contact h2 { margin: 0 0 16px; font-family: "Source Serif 4", Georgia, serif; font-size: clamp(2.55rem, 5vw, 5.1rem); line-height: .96; letter-spacing: -.055em; }
+    .contact-intro p { margin: 0 0 24px; color: var(--muted); }
+    .email-link { color: var(--green); font-weight: 700; text-underline-offset: 4px; overflow-wrap: anywhere; }
+    form { display: grid; gap: 18px; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    label { display: grid; gap: 7px; font-size: .84rem; font-weight: 700; }
+    input, textarea, select {
+      width: 100%;
+      min-height: 48px;
+      border: 1px solid var(--line-strong);
+      background: var(--surface);
+      color: var(--ink);
+      padding: 11px 12px;
+      border-radius: 0;
+    }
+    textarea { min-height: 138px; resize: vertical; }
+    .form-note { margin: 0; color: var(--muted); font-size: .78rem; }
+    .status { min-height: 1.4em; margin: 0; color: var(--green); font-size: .86rem; font-weight: 600; }
+
+    footer { padding: 30px 0 calc(30px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); color: var(--muted); font-size: .8rem; }
+    footer .shell { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+
+    @media (max-width: 820px) {
+      .site-nav { justify-content: space-between; gap: 14px; }
+      .site-nav a:nth-child(2) { display: none; }
+      .hero { grid-template-columns: 1fr; gap: 30px; padding: 48px 0 58px; }
+      .hero-side { max-width: 570px; }
+      .proof-strip { grid-template-columns: 1fr; }
+      .proof-strip div { padding: 16px 0; }
+      .proof-strip div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
+      section { padding: 80px 0; }
+      .section-head { grid-template-columns: 1fr; gap: 14px; margin-bottom: 40px; }
+      .project { grid-template-columns: 1fr; }
+      .project-copy { max-width: 620px; }
+      .steps { grid-template-columns: 1fr; }
+      .step { padding: 26px 0; }
+      .step + .step { padding-left: 0; border-left: 0; border-top: 1px solid color-mix(in srgb, currentColor 34%, transparent); }
+      .step h3 { margin-top: 18px; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 520px) {
+      .shell { width: min(100% - 28px, var(--max)); }
+      .site-nav { min-height: 64px; font-size: .82rem; }
+      .nav-contact { padding: 8px 11px; }
+      .hero { padding-top: 38px; }
+      .hero h1 { font-size: clamp(3.1rem, 16vw, 4.6rem); }
+      .button-row { display: grid; grid-template-columns: 1fr; }
+      .button { width: 100%; }
+      .browser { min-height: 330px; }
+      .mock { min-height: 291px; padding: 24px; }
+      .mock-kicker { margin-top: 45px; }
+      .groomer h4, .roofer h4, .boiler h4 { font-size: 2.35rem; }
+      .field-row { grid-template-columns: 1fr; }
+      .contact { padding-top: 74px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="#work">Work</a>
+      <a href="#approach">Approach</a>
+      <a class="nav-contact" href="#contact">Start a conversation</a>
+    </nav>
+
+    <header class="hero">
+      <div>
+        <h1>Local websites built to <span>earn the call.</span></h1>
+      </div>
+      <div class="hero-side">
+        <p>I design clear, focused websites for Sun Prairie and Madison-area businesses that make it easy for customers to trust you, understand what you do, and get in touch.</p>
+      </div>
+    </header>
+
+    <div class="proof-strip" aria-label="Service focus">
+      <div><strong>Built around your business</strong>No one-size-fits-all template</div>
+      <div><strong>Mobile-first</strong>Clear and usable on every screen</div>
+      <div><strong>Conversion-focused</strong>Every page leads to a real next step</div>
+    </div>
+  </div>
+
+  <main>
+    <section id="work" class="shell" aria-labelledby="work-title">
+      <div class="section-head">
+        <span class="section-number">01 / CONCEPT WORK</span>
+        <div>
+          <h2 id="work-title">Three local-business redesign directions.</h2>
+          <p>These self-initiated concepts show how I approach common website problems: unclear calls to action, weak trust signals, and pages that do not work hard enough on mobile.</p>
+        </div>
+      </div>
+
+      <div class="projects">
+        <article class="project">
+          <div class="project-copy">
+            <span class="project-type">Pet grooming / concept</span>
+            <h3>Canine Corner</h3>
+            <p>A warmer, more established-feeling presence designed to turn local searches into appointment requests.</p>
+            <ul>
+              <li>Immediate call and booking options</li>
+              <li>Service details customers can scan</li>
+              <li>Reviews and finished-groom gallery</li>
+            </ul>
+          </div>
+          <div class="browser" aria-label="Canine Corner website concept preview">
+            <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+            <div class="mock groomer">
+              <div class="mini-nav"><span>CANINE CORNER</span><span>SERVICES&nbsp;&nbsp; BOOK</span></div>
+              <div class="mock-kicker">Your neighborhood dog groomer</div>
+              <h4>Clean pups.<br />Happy people.</h4>
+              <span class="mini-button">BOOK A GROOM</span>
+              <div class="paw" aria-hidden="true"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-copy">
+            <span class="project-type">Roofing / concept</span>
+            <h3>RQ Roofing</h3>
+            <p>A stronger lead-generation site centered on credibility, past work, and a fast path to a free estimate.</p>
+            <ul>
+              <li>Estimate request above the fold</li>
+              <li>Project photos and homeowner proof</li>
+              <li>Clear service-area information</li>
+            </ul>
+          </div>
+          <div class="browser" aria-label="RQ Roofing website concept preview">
+            <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+            <div class="mock roofer">
+              <div class="mini-nav"><span>RQ ROOFING</span><span>PROJECTS&nbsp;&nbsp; ESTIMATE</span></div>
+              <div class="mock-kicker">Madison-area roofing</div>
+              <h4>Your roof.<br />Done right.</h4>
+              <span class="mini-button">GET A FREE ESTIMATE</span>
+              <div class="mini-stat"><strong>23+</strong>YEARS IN THE TRADE</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-copy">
+            <span class="project-type">Home services / concept</span>
+            <h3>A &amp; J Boiler</h3>
+            <p>A straightforward service website that replaces search-engine filler with useful answers and an obvious way to call.</p>
+            <ul>
+              <li>Emergency service visible instantly</li>
+              <li>Human, trustworthy service copy</li>
+              <li>Simple estimate-request path</li>
+            </ul>
+          </div>
+          <div class="browser" aria-label="A and J Boiler website concept preview">
+            <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+            <div class="mock boiler">
+              <div class="mini-nav"><span>A&amp;J BOILER</span><span>SERVICES&nbsp;&nbsp; CONTACT</span></div>
+              <div class="mock-kicker">Boiler &amp; plumbing service</div>
+              <h4>No heat?<br />Let’s fix that.</h4>
+              <span class="mini-button">REQUEST AN ESTIMATE</span>
+              <div class="pipe" aria-hidden="true"></div>
+              <div class="emergency">CALL FOR SERVICE</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="approach" class="approach-wrap" aria-labelledby="approach-title">
+      <div class="shell">
+        <div class="section-head">
+          <span class="section-number">02 / APPROACH</span>
+          <div>
+            <h2 id="approach-title">Useful before flashy.</h2>
+            <p>A good local-business website answers the questions customers actually have, removes friction, and earns confidence quickly.</p>
+          </div>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <span>01</span>
+            <h3>Find the friction</h3>
+            <p>I look at what customers need, where the current site loses them, and what one action matters most.</p>
+          </article>
+          <article class="step">
+            <span>02</span>
+            <h3>Build the clearest path</h3>
+            <p>The words, hierarchy, and mobile layout work together so visitors can act without hunting.</p>
+          </article>
+          <article class="step">
+            <span>03</span>
+            <h3>Polish what earns trust</h3>
+            <p>Strong visual design supports the business: clean presentation, credible proof, and no unnecessary clutter.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell" aria-labelledby="about-title">
+      <div class="about-grid">
+        <h2 id="about-title">Business thinking, applied to the web.</h2>
+        <div class="about-copy">
+          <p>I’m Matt, based near Sun Prairie. I build clear, practical website concepts for local businesses.</p>
+          <p>The goal is not just a better-looking page. It is a better customer experience and a site that supports how the business actually wins work.</p>
+          <div class="about-note">Working with local service businesses, shops, and independent operators in the Madison area.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact" aria-labelledby="contact-title">
+      <div class="shell contact-grid">
+        <div class="contact-intro">
+          <h2 id="contact-title">Have a site that needs work?</h2>
+          <p>Send a few details. The button opens a ready-to-send draft in your email app, so you stay in control of what gets sent.</p>
+          <a class="email-link" href="mailto:matthewevansterbeek@gmail.com">matthewevansterbeek@gmail.com</a>
+        </div>
+
+        <form id="contactForm" novalidate>
+          <div class="field-row">
+            <label>Your name
+              <input id="name" name="name" autocomplete="name" required />
+            </label>
+            <label>Business name
+              <input id="business" name="business" autocomplete="organization" />
+            </label>
+          </div>
+          <label>What do you need?
+            <select id="need" name="need">
+              <option value="A new website">A new website</option>
+              <option value="A redesign of an existing site">A redesign of an existing site</option>
+              <option value="Not sure yet">Not sure yet</option>
+            </select>
+          </label>
+          <label>Tell me a little about the project
+            <textarea id="message" name="message" required placeholder="What does your business do, and what is not working with the current site?"></textarea>
+          </label>
+          <div class="button-row">
+            <button class="button" type="submit">Open email draft <span class="arrow" aria-hidden="true">↗</span></button>
+          </div>
+          <p class="form-note">Nothing is sent automatically. Your email app will open with these details filled in.</p>
+          <p id="formStatus" class="status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">
+      <span>Sun Prairie, Wisconsin</span>
+      <span>© <span id="year">2026</span> Matt Builds Sites</span>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var form = document.getElementById('contactForm');
+      var status = document.getElementById('formStatus');
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+        link.addEventListener('click', function (event) {
+          var target = document.querySelector(link.getAttribute('href'));
+          if (!target) return;
+          event.preventDefault();
+          target.scrollIntoView({ block: 'start' });
+        });
+      });
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        var name = document.getElementById('name').value.trim();
+        var business = document.getElementById('business').value.trim();
+        var need = document.getElementById('need').value;
+        var message = document.getElementById('message').value.trim();
+
+        if (!name || !message) {
+          status.textContent = 'Please add your name and a short project note.';
+          return;
+        }
+
+        var subject = 'Website inquiry' + (business ? ': ' + business : ' from ' + name);
+        var body = [
+          'Hi Matt,',
+          '',
+          'My name is ' + name + '.',
+          business ? 'Business: ' + business : '',
+          'Project: ' + need,
+          '',
+          message,
+          '',
+          'Thanks,' ,
+          name
+        ].filter(function (line, index, all) {
+          return line !== '' || (index > 0 && all[index - 1] !== '');
+        }).join('\n');
+
+        status.textContent = 'Opening your email app…';
+        window.location.href = 'mailto:matthewevansterbeek@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      });
+    }());
+  </script>
+</body>
+</html>
